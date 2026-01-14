@@ -1,0 +1,67 @@
+---
+import '@/styles/global.css';
+import '@/styles/prose.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'My Blog - Thoughts on Design & Technology',
+  description = 'A blog about design, technology, and creative exploration'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="border-b-2 border-clay bg-sand/30 backdrop-blur-sm sticky top-0 z-50">
+      <div class="content-container py-6">
+        <nav class="flex items-center justify-between">
+          <a href="/" class="text-2xl font-serif font-bold text-forest hover:text-rust transition-colors">
+            My Blog
+          </a>
+          <div class="flex gap-6">
+            <a href="/blog" class="text-forest hover:text-rust transition-colors font-medium">
+              Blog
+            </a>
+            <a href="/about" class="text-forest hover:text-rust transition-colors font-medium">
+              About
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="border-t-2 border-sage bg-sand/50 mt-16">
+      <div class="content-container py-8">
+        <p class="text-center text-forest">
+          © {new Date().getFullYear()} · Made with
+          <span class="text-rust">♥</span> and <a href="https://astro.build" class="hand-underline">Astro</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

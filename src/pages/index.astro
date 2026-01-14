@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get latest 3 posts
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+const latestPosts = allPosts
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <div class="content-container py-24">
+    <!-- Hero -->
+    <section class="mb-20 animate-fade-in">
+      <h1 class="text-6xl font-serif font-bold text-ink mb-6 leading-tight">
+        Welcome to my
+        <span class="hand-underline text-rust">digital garden</span>
+      </h1>
+
+      <p class="text-2xl text-forest mb-8 max-w-2xl leading-relaxed">
+        A space for growing ideas, exploring concepts, and learning in public.
+        Thoughts on design, technology, and creative work.
+      </p>
+
+      <div class="flex gap-4">
+        <a
+          href="/blog"
+          class="px-6 py-3 bg-forest text-cream rounded-lg font-medium hover:bg-rust transition-colors"
+        >
+          Read the blog
+        </a>
+        <a
+          href="/about"
+          class="px-6 py-3 border-2 border-forest text-forest rounded-lg font-medium hover:bg-forest hover:text-cream transition-colors"
+        >
+          About me
+        </a>
+      </div>
+    </section>
+
+    <!-- Latest posts -->
+    <section>
+      <h2 class="text-3xl font-serif font-bold text-ink mb-8">
+        Latest Posts
+      </h2>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        {latestPosts.map((post) => {
+          const formattedDate = new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          }).format(post.data.publishDate);
+
+          return (
+            <article class="card-organic">
+              <a href={`/blog/${post.slug}`}>
+                <h3 class="text-xl font-serif font-bold text-forest mb-2 hover:text-rust transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-forest/80 text-sm mb-3">
+                  {post.data.description}
+                </p>
+                <time datetime={post.data.publishDate.toISOString()} class="text-xs text-forest/70">
+                  {formattedDate}
+                </time>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

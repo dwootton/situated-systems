@@ -1,0 +1,129 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+
+// Filter to only h2 and h3 headings for cleaner TOC
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+<nav class="toc-container hidden lg:block fixed left-8 top-32 w-64 max-h-[calc(100vh-10rem)] overflow-y-auto">
+  <div class="text-xs font-bold text-forest/60 uppercase tracking-wide mb-4">Contents</div>
+  <ul class="space-y-2" id="toc-list">
+    {tocHeadings.map((heading) => (
+      <li class={`toc-item ${heading.depth === 3 ? 'ml-4' : ''}`}>
+        <a
+          href={`#${heading.slug}`}
+          data-heading-id={heading.slug}
+          class="toc-link block text-sm text-forest/40 hover:text-forest transition-all duration-200 py-1"
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .toc-link {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .toc-link.active {
+    color: rgb(74, 93, 79);
+    font-weight: 500;
+  }
+
+  .toc-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgb(212, 165, 116);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .toc-link.active::before {
+    opacity: 1;
+  }
+
+  /* Smooth scrollbar styling */
+  .toc-container::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .toc-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .toc-container::-webkit-scrollbar-thumb {
+    background: rgb(184, 197, 176, 0.3);
+    border-radius: 2px;
+  }
+</style>
+
+<script>
+  // Intersection Observer to track which heading is currently visible
+  const observerOptions = {
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0,
+  };
+
+  const headingElements = Array.from(
+    document.querySelectorAll('article h2, article h3')
+  );
+
+  const tocLinks = Array.from(
+    document.querySelectorAll('.toc-link')
+  ) as HTMLAnchorElement[];
+
+  let activeHeading: Element | null = null;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        activeHeading = entry.target;
+        updateActiveTocLink();
+      }
+    });
+  }, observerOptions);
+
+  headingElements.forEach((heading) => observer.observe(heading));
+
+  function updateActiveTocLink() {
+    if (!activeHeading) return;
+
+    const activeId = activeHeading.id;
+
+    tocLinks.forEach((link) => {
+      const headingId = link.getAttribute('data-heading-id');
+      if (headingId === activeId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Smooth scroll when clicking TOC links
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href')?.slice(1);
+      if (targetId) {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+</script>

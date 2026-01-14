@@ -1,0 +1,35 @@
+---
+interface Image {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  images: Image[];
+  columns?: 2 | 3;
+}
+
+const { images, columns = 2 } = Astro.props;
+const gridCols = columns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2';
+---
+
+<div class={`grid grid-cols-1 ${gridCols} gap-6 my-8 not-prose`}>
+  {images.map((image) => (
+    <figure class="group cursor-pointer">
+      <div class="overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
+        <img
+          src={image.src}
+          alt={image.alt}
+          class="w-full h-auto object-cover"
+          loading="lazy"
+        />
+      </div>
+      {image.caption && (
+        <figcaption class="mt-2 text-sm text-center text-forest italic">
+          {image.caption}
+        </figcaption>
+      )}
+    </figure>
+  ))}
+</div>

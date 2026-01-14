@@ -1,0 +1,25 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'Interactive Demo' } = Astro.props;
+---
+
+<div class="my-8 not-prose">
+  <div class="card-organic">
+    {title && (
+      <h4 class="text-xl font-serif font-bold mb-4 text-forest">
+        {title}
+      </h4>
+    )}
+    <div class="bg-sand rounded-lg p-6">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Client-side interactivity can be added here
+  console.log('Interactive demo loaded');
+</script>

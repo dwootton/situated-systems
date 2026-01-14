@@ -1,0 +1,47 @@
+---
+interface Props {
+  type: 'image' | 'interactive' | 'gif' | 'aside';
+  label?: string;
+}
+
+const { type, label } = Astro.props;
+
+const typeConfig = {
+  image: {
+    emoji: '🖼️',
+    bgColor: 'bg-sky/10',
+    borderColor: 'border-sky/30',
+  },
+  interactive: {
+    emoji: '⚡',
+    bgColor: 'bg-lavender/10',
+    borderColor: 'border-lavender/30',
+  },
+  gif: {
+    emoji: '🎬',
+    bgColor: 'bg-peach/10',
+    borderColor: 'border-peach/30',
+  },
+  aside: {
+    emoji: '📝',
+    bgColor: 'bg-sage/10',
+    borderColor: 'border-sage/30',
+  },
+};
+
+const config = typeConfig[type];
+---
+
+<div class={`my-8 -mx-6 md:-mx-12 p-6 md:p-8 border-l-4 ${config.bgColor} ${config.borderColor} not-prose`}>
+  <div class="flex items-start gap-3">
+    <span class="text-3xl flex-shrink-0">{config.emoji}</span>
+    <div class="flex-1">
+      <div class="text-sm font-mono text-forest/60 mb-2 uppercase tracking-wide">
+        {label || `${type} placeholder`}
+      </div>
+      <div class="text-forest/80 leading-relaxed">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '@/components/blog/TableOfContents.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { post, headings } = Astro.props;
+const { title, description, publishDate, author, tags, coverImage, coverAlt } = post.data;
+
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(publishDate);
+---
+
+<BaseLayout title={title} description={description}>
+  <TableOfContents headings={headings} />
+  <article class="content-container py-16 lg:ml-64">
+    <!-- Hero section -->
+    <header class="mb-12 animate-fade-in">
+      <h1 class="text-5xl font-serif font-bold text-ink mb-4 leading-tight">
+        {title}
+      </h1>
+
+      <p class="text-xl text-forest mb-6 leading-relaxed">
+        {description}
+      </p>
+
+      <div class="flex items-center gap-4 text-sm text-forest/80">
+        <span class="font-medium">{author}</span>
+        <span>·</span>
+        <time datetime={publishDate.toISOString()}>{formattedDate}</time>
+      </div>
+
+      {tags && tags.length > 0 && (
+        <div class="flex gap-2 mt-4">
+          {tags.map(tag => (
+            <span class="px-3 py-1 bg-sage/30 text-forest rounded-full text-sm">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    {coverImage && (
+      <div class="mb-12 -mx-6 md:mx-0">
+        <img
+          src={coverImage}
+          alt={coverAlt || ''}
+          class="w-full rounded-lg shadow-lg"
+        />
+      </div>
+    )}
+
+    <!-- Blog content -->
+    <div class="prose-blog">
+      <slot />
+    </div>
+
+    <!-- Footer navigation -->
+    <footer class="mt-16 pt-8 border-t-2 border-sage">
+      <a
+        href="/blog"
+        class="inline-flex items-center gap-2 text-forest hover:text-rust transition-colors font-medium"
+      >
+        ← Back to all posts
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

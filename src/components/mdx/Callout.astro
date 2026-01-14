@@ -1,0 +1,34 @@
+---
+interface Props {
+  type?: 'info' | 'warning' | 'success' | 'tip';
+  title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const styles = {
+  info: 'bg-sky/20 border-sky text-forest',
+  warning: 'bg-peach/30 border-rust text-ink',
+  success: 'bg-sage/30 border-forest text-forest',
+  tip: 'bg-lavender/20 border-lavender text-ink',
+};
+
+const icons = {
+  info: 'ℹ️',
+  warning: '⚠️',
+  success: '✓',
+  tip: '💡',
+};
+---
+
+<aside class={`my-6 p-6 border-l-4 rounded-r-lg ${styles[type]}`}>
+  {title && (
+    <div class="flex items-center gap-2 mb-2 font-bold">
+      <span class="text-xl">{icons[type]}</span>
+      <h4 class="text-lg m-0">{title}</h4>
+    </div>
+  )}
+  <div class="prose-sm">
+    <slot />
+  </div>
+</aside>

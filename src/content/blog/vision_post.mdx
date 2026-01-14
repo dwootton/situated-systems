@@ -1,0 +1,341 @@
+---
+title: "The Computer for the 2030s: Situated Systems"
+description: "Your computer is remarkably capable. But it doesn't know what you're working on. What would it take to change that?"
+publishDate: 2025-12-31
+author: "Dylan Wootton"
+tags: ["systems", "AI", "vision"]
+draft: false
+---
+
+import Callout from '@/components/mdx/Callout.astro';
+import PlaceholderCard from '@/components/mdx/PlaceholderCard.astro';
+
+Your computer is remarkably capable. It can generate images, write code, summarize documents, answer questions about quantum mechanics. It can do things that would have seemed like science fiction ten years ago.
+
+But it doesn't know what you're working on.
+
+It doesn't remember what you discussed with it yesterday. It can't see that your email and your document are part of the same task. Every conversation starts cold. Every application is an island. You spend your time ferrying context between tools that can't see each other.
+
+We've been building intelligence without situatedness. Powerful models that are smart in isolation and dumb in context.
+
+This essay is about what it would take to change that. We call systems that share your context *situated systems*, borrowing from a term in linguistics for communication that's grounded in shared environment and history. The friend who gets the joke without explanation. The colleague who knows what you mean when you say "that thing we talked about."
+
+What would it mean for software to work like that?
+
+<PlaceholderCard type="interactive" label="coming soon">
+Gonna put a minimal animation here showing the "island" problem. Picture like multiple app windows (email, doc, chat, browser) each floating in their own bubble, with you in the middle manually drawing lines between them. Then it transitions to a "situated" view where the bubbles merge into shared context. Sets up the core problem visually before we get into it.
+</PlaceholderCard>
+
+---
+
+## Common Ground
+
+To understand what situated means, consider how human communication actually works.
+
+You know the experience of talking to someone who's missing context. You're trying to explain something, but you have to keep backfilling: who the people are, why it matters, what happened last week that makes this week's thing make sense. The conversation never gets to the point because you're too busy constructing scaffolding.
+
+Now think about talking to someone who *has* context. You can point at something and they just *get it*. Inside jokes land. You can say "that thing we talked about" and they know which thing. The conversation moves fast because you're not constantly re-establishing shared ground.
+
+Linguists call this *common ground*: the mutual knowledge that accumulates between people through interaction. Herbert Clark and Susan Brennan's foundational work on grounding in communication describes how participants in conversation coordinate not just *what* they say but *how* they establish mutual understanding.[^1] It's not just what you both know, but what you both know *you both know*. It's what lets a gesture mean something, what lets a pronoun refer to the right thing, what lets "you know what I mean" actually work.
+
+[^1]: Clark, H.H. & Brennan, S.E. (1991). "Grounding in Communication." In *Perspectives on Socially Shared Cognition* (pp. 127-149). American Psychological Association.
+
+## The Bike at the Library
+
+Here's an example, adapted from Michael Tomasello's work on the origins of human communication.[^2] You and a friend are walking into the library. She stops you at the door and points at a red bike locked up outside. What does the point mean?
+
+If you just broke up with your boyfriend, and that's his bike, she's warning you: *he's inside*. If she mentioned yesterday she's been looking for a new bike, she's saying: *that's the one I want*. If her bike got stolen last week and it looked just like that, she's asking: *is that mine?*
+
+Same gesture. Entirely different meaning. The difference is *what you both already know*, what linguists call common ground.
+
+[^2]: Tomasello, M. (2008). *Origins of Human Communication*. MIT Press.
+
+Common ground isn't just shared knowledge. It's *mutually known* shared knowledge: I know that you know that I know. And it accumulates. Every successful exchange becomes part of the context for the next one. This is why conversations with close collaborators feel effortless. You've built up years of shared reference.
+
+## Software Doesn't Work Like This
+
+When I open an email from my advisor with a list of paper revisions, my Overleaf tab has no idea. I become the translator: read the email, context-switch to the doc, hold the feedback in working memory, apply the changes, switch back to check if I got it right. The actual work, editing sentences, is maybe 20% of my time. The rest is plumbing, ferrying context between applications that can't see each other.
+
+Chatbots narrow the gap slightly. I can paste context into a conversation and ask questions. But "paste context" is the tell. I'm still the translator. The model doesn't know what tab I have open, what I was reading this morning, what I'm ultimately trying to accomplish. Every conversation starts cold. There's no accumulation.
+
+<PlaceholderCard type="image" label="diagram idea">
+Want a simple diagram here contrasting two flows. Left side: "Human as translator" showing you ferrying information between app silos. Right side: "Situated system" showing context flowing freely across a shared layer. Clean, minimal, maybe hand-drawn aesthetic to match the vibe.
+</PlaceholderCard>
+
+## An Old Dream
+
+The dream of something better is as old as modern computing. In 1960, J.C.R. Licklider wrote:
+
+> "To think in interaction with a computer in the same way that you think with a colleague whose competence supplements your own will require much tighter coupling between man and machine."
+
+More than six decades later, we're still waiting on that tight coupling. But something has changed.
+
+## What Changed
+
+The blocker was always representation.
+
+Humans do this effortlessly. You see a bike, retrieve a memory, connect it to an emotion, recognize your friend is pointing at it, infer why she might be pointing. All in milliseconds. Your perceptual and cognitive systems take raw sensory input and transform it into something meaningful, something you can reason about.
+
+Computers historically couldn't do this. A screenshot was just pixels. Text in one application was invisible to another. The semantic content of your screen, what you were *doing*, was locked inside your head. To make meaning flow across applications required a designer to explicitly build each bridge. And if the designer didn't anticipate your workflow, you were out of luck.
+
+What changed is that we now have models that can ingest nearly any input modality, pixels, text, structured trees, audio, and transform it into a shared representational space. The screen becomes semantically legible. Not because someone hand-built a parser for every possible interface, but because the model learns to extract meaning from form, the same way human perception does.
+
+<PlaceholderCard type="interactive" label="semantic legibility demo">
+Thinking an interactive "semantic legibility" demo here. Show a screenshot of a cluttered desktop with multiple apps visible. As you hover or click different regions, annotations appear showing what a vision-language model "sees": "Email from advisor about paper revisions", "Overleaf document: CHI submission, methods section", "Slack thread: lab discussion about deadline". Demonstrates the transformation from pixels to semantics in a way you can play with.
+</PlaceholderCard>
+
+This matters because it changes what a computer can know about you. If the system can read your screen, it can watch your workflow. If it can watch your workflow, it can start to build the kind of context that humans build naturally: what you're working on, what you were doing an hour ago, what you might need next.
+
+The raw capability exists. The question is how to design systems that use it well.
+
+## The Bet
+
+We think the personal computer of the 2030s will be situated.
+
+It will understand your context because it has observed your past actions, across applications, across days. It will maintain a model of you: your projects, your preferences, your patterns. And it will use that model to surface information before you ask, to connect dots you didn't know were related, to communicate in whatever modality fits the moment.
+
+Situated systems won't replace your applications. They'll flow between them. Your work will be legible wherever you do it.
+
+---
+
+# Principles for Situated Systems
+
+What would it take to build software that actually shares context with you? Not software that guesses, like Clippy. Not software that surveils, like Instagram's algorithm. Software that builds common ground the way a colleague does.
+
+We've landed on five principles. They're not a specification. They're more like values: things to optimize for, tensions to navigate, qualities to cultivate.
+
+---
+
+## Copresence
+
+*The system shares your perceptual world.*
+
+In face-to-face conversation, both parties see the bike. They hear the same sounds. They share an environment. Clark and Brennan call this *copresence*, and it's foundational to how humans build common ground. When you point, I see what you're pointing at.
+
+Current software lacks copresence almost entirely. Your email client can't see your document editor. Your chat app doesn't know what tab you're looking at. Each application is isolated, peering at your work through a keyhole.
+
+A situated system should see what you see, hear what you hear, across applications and over time. Not literally everything, but enough to share your context. When you switch from email to Overleaf, it should notice. When you've been staring at the same paragraph for ten minutes, it should know.
+
+<PlaceholderCard type="image" label="keyhole vision diagram">
+Split screen showing "what user sees" (full desktop with multiple apps) vs "what Clippy sees" (just the Word document) vs "what a situated system sees" (the full desktop, semantically parsed). Visual demonstration of the keyhole problem.
+</PlaceholderCard>
+
+This is what Rewind.ai got right: continuous recording of screen and audio achieves something like digital copresence. The system is *there* with you, witnessing your workflow as it unfolds.
+
+But copresence isn't just raw perception. Human copresence is selective. You're not attending to everything in your visual field, just what matters. A situated system needs both: broad perception and selective attention. It should know what you're *not* looking at as much as what you are.
+
+**The design test**: Can your system see both the email and the document? Does it know which one you're focused on? If you point at something, does it know what you mean?
+
+---
+
+## Memory
+
+*Context compounds over time.*
+
+Common ground accumulates. Every successful exchange becomes part of the context for the next one. This is why conversations with longtime collaborators feel effortless: you've built up years of shared reference. You don't re-explain your project every time you talk.
+
+Most software has no memory. Every session starts from zero. Even tools that technically persist data don't *accumulate context*. They store files, not understanding.
+
+A situated system should remember. What you discussed yesterday shapes today's inferences. The project you've been working on for weeks is weighted more heavily than a tab you opened once. Your preferences compound into a model of how you work.
+
+But memory isn't just accumulation. Human memory is selective. Recent things are vivid. Old things compress. Irrelevant things fade. A good memory isn't a database; it's a living structure that prioritizes, consolidates, forgets.
+
+<PlaceholderCard type="image" label="memory structure">
+Diagram contrasting "database memory" (flat rows of equal weight) with "human-like memory" (layered, recent things larger, old things compressed but still connected). Thinking the visual metaphor of sedimentary layers or maybe a tree with recent growth more prominent.
+</PlaceholderCard>
+
+What should persist? Not raw recordings, but structured understanding. Not every click, but the projects you return to, the patterns in how you work, the corrections you've made. The system should be able to answer "what was I working on last Tuesday?" but also "what kind of help do I usually want?"
+
+**The design test**: Does your system know what you talked about yesterday? Does it weight recent context more heavily? Can old context still be retrieved when relevant?
+
+---
+
+## Interpretation
+
+*The system models intent, not just action.*
+
+Clippy's fatal flaw wasn't that it tried to help. It was that it guessed from surface patterns without modeling intent. It saw "Dear..." and inferred "writing a letter" without understanding *why* you were typing, *what* you were trying to accomplish, *whether* you wanted help.
+
+<PlaceholderCard type="gif" label="clippy recreation">
+Gonna recreate the classic Clippy popup here, then show a "what Clippy sees" view (just the text "Dear"), then a "what a situated system sees" view (the full context: this is a reply to an email thread, you've written similar emails before, you're in a hurry based on typing speed). Demonstrates depth of interpretation.
+</PlaceholderCard>
+
+Interpretation is the inference gap between perception and understanding:
+
+**Recognition**: "This is Overleaf"  
+**Interpretation**: "User is editing the methods section"  
+**Goal inference**: "User is addressing reviewer comments"  
+**Need inference**: "User might benefit from seeing the review alongside the doc"
+
+Most systems stop at recognition. They know what app you're in. A situated system should push further: what are you trying to do? What would actually help right now?
+
+<PlaceholderCard type="interactive" label="inference depth explorer">
+An "inference depth" slider or stepper component. Shows the same screenshot of someone working, but as you move the slider from "Recognition" to "Interpretation" to "Goal inference" to "Need inference", different annotations appear showing what the system understands at each level. Makes the abstraction concrete and playable.
+</PlaceholderCard>
+
+This is hard. Goals aren't always clear, even to the person pursuing them. People have conflicting goals, nested goals, goals they don't consciously articulate. A situated system needs to hold uncertainty: maybe you're doing X, maybe Y, here's what would help in either case.
+
+But interpretation without action is just surveillance. The point of understanding intent is to help well. Which brings us to the next principle.
+
+**The design test**: Does your system know *why* you're doing what you're doing? Can it distinguish "writing a letter" from "quoting a letter" from "deleting the word Dear"? When it offers help, is the help relevant to your actual goal?
+
+---
+
+## Tact
+
+*Knowing when to help and when to stay quiet.*
+
+Clippy interrupted constantly. That's what made it unbearable. Not the help itself, but the interruption. The presumption. The "It looks like you're writing a letter" when you were not, in fact, writing a letter, and even if you were, you didn't need a talking paperclip to tell you how.
+
+<PlaceholderCard type="image" label="tact matrix">
+A 2x2 matrix. X-axis: "System is right" vs "System is wrong". Y-axis: "System intervenes" vs "System stays quiet". Top-left quadrant (right + intervenes): "Helpful". Top-right (wrong + intervenes): "Clippy". Bottom-left (right + quiet): "Missed opportunity". Bottom-right (wrong + quiet): "Appropriate restraint". The quadrants should be sized to suggest that "appropriate restraint" is often the right choice.
+</PlaceholderCard>
+
+Tact is knowing when not to act. It's the quality that earns trust. A tactful system:
+
+- **Waits until confident**: The cost of interrupting wrong is higher than the cost of staying silent. The threshold for action should be high.
+
+- **Modulates intensity**: A subtle highlight costs less than a popup. A suggestion in the sidebar costs less than a modal dialog. The force of intervention should match the confidence.
+
+- **Is easy to dismiss**: When the system is wrong, saying "no" should be effortless. One keystroke, one gesture, gone.
+
+- **Learns from dismissal**: "No, not that" shouldn't just close a dialog. It should update future inferences. Repair is part of tact.
+
+The goal is a system that disappears. You notice its absence when something isn't there that should be, not its presence interrupting you. Like a good assistant who anticipates needs without being asked, who knows when you want to be left alone.
+
+**The design test**: Do users dismiss your suggestions often? (Lower confidence threshold.) Do users miss opportunities your system could have helped with? (Raise it.) Is dismissal effortless? Does the system learn from being wrong?
+
+---
+
+## Loyalty
+
+*The system serves you and belongs to you.*
+
+Instagram's algorithm models you exquisitely. It knows your interests, your weaknesses, your patterns. It builds a detailed map of what captures your attention. And it uses that map to serve advertisers.
+
+This is the dark version of situated computing: a system that *knows* you deeply but isn't *for* you. Its goals and your goals diverge. When they conflict, it optimizes for engagement, not your wellbeing.
+
+<PlaceholderCard type="image" label="alignment diagram">
+Simple diagram showing two different "who does the system serve?" models. Left: user and system aligned, both pointing toward "user's goals". Right: system serving platform, user's goals off to the side, conflict indicated. Could be abstract/diagrammatic or more illustrated.
+</PlaceholderCard>
+
+A loyal system takes your side. This means:
+
+**Data ownership**: The accumulated context is yours. Stored locally by default. Portable. You can export it, delete it, move it to another system. If the company building the application pivots or shuts down, your context persists.
+
+<PlaceholderCard type="aside" label="rewind cautionary tale">
+The cautionary tale of Rewind. They built a local-first screen recorder that accumulated years of user context. Then the company pivoted to Limitless, a wearable pendant. In December 2025, Meta acquired them. The Rewind app was shut down within weeks. Users were offered an export tool, but with a tight deadline, and service was cut off entirely in the EU and UK with just two weeks to retrieve data before permanent deletion. Export existed, eventually. But timing, completeness, and interoperability are what matter. "Local-first" without strong portability guarantees is fragile. Your context should live in open formats that outlive any single application.
+</PlaceholderCard>
+
+**Inference transparency**: You can see what the system knows about you. What has it inferred? What model has it built? Legibility enables trust, and trust enables the kind of deep access that situated systems require.
+
+**Goal alignment**: The system optimizes for your goals, not engagement metrics. No dark patterns. No attention hijacking. When you want to stop working, it doesn't try to keep you engaged.
+
+The architectural implication: separate data from application. Your context persists as something like files on disk. Applications provide views, inference, and interaction on top of that data. If one app dies, your context remains. If you want to switch tools, you can. The moat should be in the quality of inference, not in locking up your history.
+
+We imagine future systems operating like Obsidian: you own your data as files on your machine. Applications compute and query against it. The data layer and the application layer separate cleanly.
+
+But loyalty also has a business model problem. A system that genuinely serves you, stores data locally, and resists engagement optimization is hard to monetize through advertising or venture-scale growth. Loyalty requires either paid software with aligned incentives, open source with local compute, or perhaps eventually regulatory frameworks that impose fiduciary duties on personal AI systems. The surveillance business model and loyalty are structurally incompatible.
+
+**The design test**: If your company disappeared tomorrow, would users still have their context? Can users see what you've inferred about them? When your incentives and user interests conflict, who wins?
+
+---
+
+# The Surveillance Problem
+
+There's an obvious objection to everything we've just described: *this is just surveillance with nicer UX*.
+
+A system with copresence sees everything you do. A system with memory never forgets. Put those together and you have a panopticon on your desktop. The fact that it's "for you" doesn't change the architecture. The fact that it's local doesn't change what it knows.
+
+This critique is correct, and any serious proposal for situated systems has to grapple with it. Copresence plus memory is indistinguishable from surveillance unless you design explicitly for boundaries, consent, minimization, and verifiable control.
+
+## Designing for Boundaries
+
+We don't have all the answers here, but we can sketch what boundary-respecting situated systems might look like:
+
+**Attention-windowed capture**: Rather than recording everything, capture only the focused application plus a small halo of recent context. The system sees what you're actively working on, not your entire screen history. Background tabs, minimized windows, notifications you glanced at and dismissed: these fade quickly unless you engage with them.
+
+**Ephemeral buffers**: Not everything needs to persist. Raw screen recordings can live in a short-term buffer that's continuously overwritten. Only extracted semantic content, the structured representation of what you were doing, gets committed to longer-term memory. The pixels disappear; the understanding remains.
+
+**Domain boundaries**: Some contexts should be walled off by default. Banking. Health records. Private messaging with certain contacts. The system should recognize these domains and either exclude them entirely or require explicit opt-in. "I noticed you opened your bank's website. I'm pausing capture until you leave."
+
+**Retention policies**: Different kinds of context deserve different lifespans. Project-related work might persist for months. A quick web search might fade in hours. Raw audio might never be stored at all, only its transcription. Users should be able to set policies at the level of domains, applications, or content types.
+
+**Audit and transparency**: If the system is going to remember, you should be able to see exactly what it remembers. Not just "you can export your data" but active, legible transparency. A local log of what was captured today. A visualization of what the system thinks it knows about you. The ability to inspect, correct, and delete at any granularity.
+
+## The Fundamental Tension
+
+There's no free lunch here. A system that captures less understands less. A system with aggressive ephemeral buffers can't answer "what was I looking at last Tuesday?" A system that walls off domains might miss important cross-domain connections.
+
+The right boundaries will be personal. Some people will want aggressive capture with long retention, willing to trade privacy for capability. Others will want minimal capture with strict decay. The system should support both, with safe defaults that err toward less capture.
+
+The goal isn't to resolve this tension but to make it navigable. To give users real choices with real consequences. To make the tradeoffs explicit rather than hiding them behind vague privacy policies.
+
+Situated systems are powerful precisely because they see and remember so much. That power has to be constrained by design, not just by policy. The architecture has to make misuse hard, not just discouraged.
+
+---
+
+# What's Still Hard
+
+These principles describe what situated systems should do. They don't resolve the hard problems.
+
+**Attention**: Copresence gives you access to everything on screen. But you can't attend to everything. How do you model what matters *right now*? Gaze tracking? Interaction recency? Goal inference? Human attention is goal-directed filtering. We don't have a good computational model of it.
+
+**Forgetting**: Memory needs decay. But what should fade and when? Recent interactions should be vivid. But some old context is foundational (your core projects, your preferences) while other old context is noise (a tab you opened once). Strategic forgetting is as important as accumulation.
+
+**Representation**: What's the structure of accumulated context? A timeline? A graph? A set of embeddings? Something like a database schema? The representation determines what queries are easy and what's hard. We don't know the right intermediate form.
+
+**Collaboration**: These principles are framed for an individual. But work is collaborative. What happens when two people share context? When does your system share what you know with your collaborator's system? Privacy and collaboration are in tension.
+
+**Threshold learning**: Tact requires knowing when to intervene. But the right threshold is personal. Some people want aggressive assistance. Some want silence unless explicitly asked. How does a system discover your preference without annoying you in the process?
+
+**Habit calcification**: A system that learns from your behavior encodes your current patterns. What if those patterns are ones you're trying to break? What if you're attempting to change how you work, and the system keeps pulling you back toward old habits? True loyalty isn't just serving your momentary impulses. It's alignment with your longer-term goals, even when those conflict with what you're doing right now. The friend who reminds you that you said you wanted to sleep earlier. The system that notices you're doomscrolling and gently asks if that's what you meant to be doing. This is hard to get right without being patronizing.
+
+<PlaceholderCard type="image" label="design space visualization">
+A visual representation of "the design space" for situated systems. Maybe a radar chart or possibility space showing the tensions: more copresence vs. privacy, more intervention vs. tact, individual vs. collaborative. Suggests that these are tradeoffs to navigate, not problems to solve once and for all.
+</PlaceholderCard>
+
+---
+
+# Conclusion
+
+We started with a gap: computers that are smart in isolation and dumb in context. Intelligence without situatedness.
+
+Closing that gap requires more than better models. It requires systems designed around a different assumption: that your computer should share your context, should remember what you've discussed, should understand what you're trying to accomplish, not just what you're clicking.
+
+We've outlined five principles for building such systems:
+
+- **Copresence**: sharing your perceptual world across applications
+- **Memory**: accumulating context over time, with selective decay
+- **Interpretation**: modeling intent, not just action
+- **Tact**: knowing when to help and when to stay quiet
+- **Loyalty**: serving you and belonging to you
+
+We view these principles as a direction. A way of evaluating whether the tools we're building are actually *with* us or just *near* us.
+
+The friend at the library doesn't need you to explain who your ex is. She remembers. She sees the bike. She knows what the point means.
+
+That's the bar. That's what situated means. And we think it's within reach.
+
+---
+
+# Appendix: Prior Art and Influences
+
+[This section could be expanded into a more detailed literature review or kept as a brief acknowledgment. Expandable/collapsible by default.]
+
+**Clark and Brennan** on grounding in communication. The vocabulary of copresence, cotemporality, accumulation comes from their work.
+
+**Tomasello** on the origins of human communication. The bike example and the broader framework of shared intentionality.
+
+**Licklider** on man-computer symbiosis. The 1960 vision that still frames the aspiration.
+
+**Clippy** and the adaptive interface literature. What went wrong and why.
+
+**Rewind.ai / Limitless** on continuous recording and the local-first tradeoff.
+
+**Ink & Switch** on local-first software and malleable systems. The architectural ideas behind loyalty and ownership.
+
+**Activity-Based Computing** (Bardram) on organizing around tasks rather than applications.
+
+**Stuff I've Seen** (Dumais et al.) on unified personal search.
+

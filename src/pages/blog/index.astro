@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts, sorted by date
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+const posts = allPosts.sort((a, b) =>
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BaseLayout title="Blog - All Posts" description="Read my latest thoughts on design and technology">
+  <div class="content-container py-16">
+    <header class="mb-12">
+      <h1 class="text-5xl font-serif font-bold text-ink mb-4">
+        Blog
+      </h1>
+      <p class="text-xl text-forest">
+        Explorations in design, technology, and creative thinking
+      </p>
+    </header>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      {posts.map((post) => {
+        const formattedDate = new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }).format(post.data.publishDate);
+
+        return (
+          <article class="card-organic group">
+            <a href={`/blog/${post.slug}`} class="block">
+              {post.data.coverImage && (
+                <img
+                  src={post.data.coverImage}
+                  alt={post.data.coverAlt || ''}
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                />
+              )}
+
+              <h2 class="text-2xl font-serif font-bold text-forest mb-2 group-hover:text-rust transition-colors">
+                {post.data.title}
+              </h2>
+
+              <p class="text-forest/80 mb-4">
+                {post.data.description}
+              </p>
+
+              <div class="flex items-center justify-between text-sm">
+                <time datetime={post.data.publishDate.toISOString()} class="text-forest/70">
+                  {formattedDate}
+                </time>
+
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex gap-2">
+                    {post.data.tags.slice(0, 2).map(tag => (
+                      <span class="text-clay">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>
