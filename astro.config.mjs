@@ -12,7 +12,8 @@ export default defineConfig({
     }),
   ],
   output: 'static',
-  site: 'https://yourdomain.com', // Update with actual domain later
+  site: 'https://dwootton.github.io',
+  base: '/situated-systems',
   markdown: {
     shikiConfig: {
       theme: 'github-light',

@@ -67,13 +67,6 @@ Your content here...
   This is a callout!
 </Callout>
 ```
-
-## 🎨 Design Philosophy
-
-This blog combines:
-- **Maggie Appleton's aesthetic**: Hand-drawn elements, warm colors, organic shapes
-- **Ink & Switch's clarity**: Clean typography, interactive elements, thoughtful design
-
 ## 📚 Tech Stack
 
 - **Astro**: Static site generator
