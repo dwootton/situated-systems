@@ -12,8 +12,7 @@ export default defineConfig({
     }),
   ],
   output: 'static',
-  site: 'https://dwootton.github.io',
-  base: '/situated-systems',
+  site: 'https://www.dylanwootton.com',
   markdown: {
     shikiConfig: {
       theme: 'github-light',
